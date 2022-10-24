@@ -10,14 +10,14 @@ Este é um exercício simples, um gerenciador de pedidos simples. Você deve des
   * Caso deseja testar o envio do email configurar os parametros no arquivo:
    `src/main/resources/application.properties` as seguintes informações:
 
-  
+    <pre>
     spring.mail.host=smtp host
     spring.mail.port=port of smtp server
     spring.mail.username=login user to smtp server
     spring.mail.password=login password to smtp server
     spring.mail.properties.mail.smtp.auth=true or false
     spring.mail.properties.mail.smtp.starttls.enable=true or false
-
+    </pre>
 
 #### 2 - Criar a imagem da api:
   - Pelo terminal acessar a pasta do projeto e executar o comando:
@@ -50,8 +50,8 @@ Este é um exercício simples, um gerenciador de pedidos simples. Você deve des
   * 1 - Clique em `Configuration` -> `Datasources` -> `Add Datasources`
   * 2 - Clique em Clique em `Prometheus`
   * 3 - Preencha os dados conforme imagem abaixo:
-  
-    ![Data Source]("./docs/images/datasource.png" "Datasource")
+
+    <img src="./docs/images/datasource.png"/>
 
   * 4 - Clique em `Dashboards` -> `Import`
     
