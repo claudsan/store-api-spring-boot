@@ -1,0 +1,79 @@
+version: '2'
+services:
+  postgres:
+    image: postgres
+    container_name: store-postgres
+    hostname: store-postgres
+    environment:
+      POSTGRES_PASSWORD: "Postgres2022!"
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - ./store-infra/database:/docker-entrypoint-initdb.d
+    networks:
+      - store-network
+
+  store-api:
+    container_name: store-api
+    hostname: store-api
+    build:
+      context: store-api
+      dockerfile: Dockerfile
+    image: store-api:latest
+    volumes:
+      - ${PWD}/logs:/log
+    # restart: unless-stopped
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+    networks:
+      - store-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: store-pgadmin
+    hostname: store-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com.br"
+      PGADMIN_DEFAULT_PASSWORD: "Postgres2022!"
+    # restart: unless-stopped
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres
+    networks:
+      - store-network
+
+  prometheus:
+    image: prom/prometheus
+    user: root
+    container_name: store-prometheus
+    hostname: store-prometheus
+    restart: unless-stopped
+    volumes:
+      - ./store-infra/prometheus:/etc/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    ports:
+      - 9090:9090
+    networks:
+      - store-network
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    hostname: grafana
+    environment:
+      -  GF_SECURITY_ADMIN_PASSWORD=admin
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - store-network
+
+networks:
+  store-network:
+    driver: bridge
