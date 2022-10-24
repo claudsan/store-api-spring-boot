@@ -1,6 +1,6 @@
 # Exemplo de Aplicação com Spring Boot
 
-Este é um exercício simples, um gerenciador de pedidos simples. Você deve desenvolver uma API onde os usuários possam criar e gerenciar pedidos. Os itens podem ser encomendados e os pedidos são atendidos automaticamente assim que o estoque do item permitir.
+Este é um exercício simples, um gerenciador de pedidos simples. Onde foi desenvolvido uma API onde os usuários podem criar e gerenciar pedidos. Os itens podem ser encomendados e os pedidos são atendidos automaticamente assim que o estoque do item permitir.
 
 ### Executar a Aplicação
 
