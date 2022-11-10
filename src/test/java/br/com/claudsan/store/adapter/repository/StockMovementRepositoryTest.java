@@ -10,9 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.Date;
+import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -39,6 +39,11 @@ public class StockMovementRepositoryTest {
         assertNotNull(newstockMovement);
         repository.delete(newstockMovement);
         itemRepository.delete(item);
+    }
+
+    @Test
+    void errorOnFindStockNotExist(){
+        assertThrows(NoSuchElementException.class, () -> repository.findById(9999L).get());
     }
 
     @Test

@@ -10,8 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @SpringBootTest
@@ -52,6 +54,11 @@ public class OrderRepositoryTest {
         repository.delete(order);
         itemRepository.delete(item);
         userRepository.delete(user);
+    }
+
+    @Test
+    void errorOnFindOrderNotExist(){
+        assertThrows(NoSuchElementException.class, () -> repository.findById(9999L).get());
     }
 
     @Test
