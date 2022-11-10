@@ -8,8 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.NoSuchElementException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -25,6 +26,11 @@ public class ItemRepositoryTest {
         Item newItem = repository.findAll().iterator().next();
         assertNotNull(newItem);
         repository.delete(item);
+    }
+
+    @Test
+    void errorOnFindItemNotExist(){
+        assertThrows(NoSuchElementException.class, () -> repository.findById(9999L).get());
     }
 
     @Test

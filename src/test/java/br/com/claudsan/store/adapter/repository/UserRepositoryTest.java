@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -29,6 +32,11 @@ public class UserRepositoryTest {
         assertEquals(userFinded.getName(),user.getName());
 
         repository.delete(user);
+    }
+
+    @Test
+    void errorOnFindUserNotExist(){
+        assertThrows(NoSuchElementException.class, () -> repository.findById(999L).get());
     }
 
     @Test
